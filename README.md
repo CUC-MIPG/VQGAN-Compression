@@ -1,4 +1,4 @@
-# Extreme Image Compression using Fine-tuned VQGAN Models
+# Extreme Image Compression using Fine-tuned VQGAN Models (DCC 2024)
 This repository is the official implementation of VQGAN-Comporession.
 
 [Qi Mao](https://sites.google.com/view/qi-mao/), [Tinghan Yang](), [Yinuo Zhang](), [Zijian Wang](), [Meng Wang](https://scholar.google.com/citations?user=6vnhEIgAAAAJ&hl=zh-TW&oi=sra), [Shiqi Wang](), [Libiao Jin](), [Siwei Ma](https://scholar.google.com/citations?user=y3YqlaUAAAAJ&hl=zh-TW&oi=sra)
