@@ -51,12 +51,12 @@ The fine-tune model is saved at `logs/`
 
 ## Citation
 ```
-@inproceedings{wang2023extreme,
-  title={Extreme Generative Human-Oriented Video Coding via Motion Representation Compression},
-  author={Wang, Ruofan and Mao, Qi and Jia, Chuanmin and Wang, Ronggang and Ma, Siwei},
-  booktitle={2023 IEEE International Symposium on Circuits and Systems (ISCAS)},
-  pages={1--5},
-  year={2023},
+@inproceedings{mao2024extreme,
+  title={Extreme image compression using fine-tuned vqgans},
+  author={Mao, Qi and Yang, Tinghan and Zhang, Yinuo and Wang, Zijian and Wang, Meng and Wang, Shiqi and Jin, Libiao and Ma, Siwei},
+  booktitle={2024 Data Compression Conference (DCC)},
+  pages={203--212},
+  year={2024},
   organization={IEEE}
 }
 ``` 
