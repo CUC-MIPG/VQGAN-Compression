@@ -1,1 +1,0 @@
-# Extreme Image Compression using Fine-tuned VQGAN Models
