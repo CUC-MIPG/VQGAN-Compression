@@ -161,7 +161,7 @@ def compute_bpp_zip(file_path, model, z):
 def parse_args():
     parser = argparse.ArgumentParser('', add_help=False)
     parser.add_argument('--logs_path', default='logs/imagenet_f16_16384/', type=str)
-    parser.add_argument('--dataset', default='Kodak/', type=str)
+    parser.add_argument('--dataset', default='/home/CodingG/yth/dataset/Kodak/', type=str)
     return parser.parse_args()
 
 if __name__=='__main__':
@@ -169,32 +169,47 @@ if __name__=='__main__':
     torch.set_grad_enabled(False)
 
     # Load Model
-    config_path = args.logs_path+'configs/model.yaml'
-    ckpt_path = args.logs_path+'checkpoints/last.ckpt'
+    config_path = args.logs_path+'configs/' + os.listdir(args.logs_path+'configs/') [0]
+    ckpt_path = args.logs_path+'checkpoints/'+ os.listdir(args.logs_path+'checkpoints/')[0]
     model = load_model(config_path=config_path, ckpt_path=ckpt_path)
 
     # set path
-    name = args.dataset.replace('/','')
-    rec_path = 'rec/' + args.dataset
+    name = args.dataset.split('/')[-2]
+    if args.logs_path.find('epoch') != -1:
+        model_name = args.logs_path.split('/')[-3]
+    else:
+        model_name = args.logs_path.split('/')[-2]
+    rec_path = 'rec/' + name + '/'
     if not os.path.exists(rec_path):
         os.makedirs(rec_path)
-    index_path = 'index/' + args.dataset
+    rec_path = rec_path + model_name + '/'
+    if not os.path.exists(rec_path):
+        os.makedirs(rec_path)
+
+    index_path = 'index/' + name + '/'
     if not os.path.exists(index_path):
         os.makedirs(index_path)
-    tmp_path = 'tmp/' + args.dataset
+    index_path = index_path + model_name + '/'
+    if not os.path.exists(index_path ):
+        os.makedirs(index_path)
+
+    tmp_path = 'tmp/' + name + '/'
     if not os.path.exists(tmp_path):
         os.makedirs(tmp_path)
-
+    tmp_path = tmp_path + model_name + "/"
+    if not os.path.exists(tmp_path):
+        os.makedirs(tmp_path)
     # Load Model
     config = load_config(config_path, display=False)
     
 
     # read image
-    img_path = 'data/' + args.dataset
+    img_path = args.dataset
     filenames = os.listdir(img_path)
     file_list = []
     bpp_list = []
     psnr_list = []
+    lpips_list = []
     for img in os.listdir(img_path):
         file_list.append(img[:-4])
         image = PIL.Image.open(img_path + img)
@@ -215,7 +230,31 @@ if __name__=='__main__':
         img2 = cv2.imread(save_img)
         psnr_list.append(psnr(img1, img2))
 
+        # Caculate lpips
+        import lpips
+        use_gpu = True  # Whether to use GPU
+        spatial = True  # Return a spatial map of perceptual distance.
+        # Linearly calibrated models (LPIPS)
+        loss_fn = lpips.LPIPS(net='alex', spatial=spatial)  # Can also set net = 'squeeze' or 'vgg'
+        # loss_fn = lpips.LPIPS(net='alex', spatial=spatial, lpips=False) # Can also set net = 'squeeze' or 'vgg'
+        if (use_gpu):
+            loss_fn.cuda()
+        total = 0
+        LP = []
+        try:
+            dummy_im0 = lpips.im2tensor(lpips.load_image(img_path+img))
+            dummy_im1 = lpips.im2tensor(lpips.load_image(save_img))
+            if (use_gpu):
+                dummy_im0 = dummy_im0.cuda()
+                dummy_im1 = dummy_im1.cuda()
+            dist = loss_fn.forward(dummy_im0, dummy_im1)
+            d = dist.mean().item()
+            lpips_list.append(d)
+        except:
+            print(f'the image path: {img_path+img},{save_img} is wrong!')
+            exit()
         # Arithmetic encoding
+        print('model.quantize.embedding.weight.size():',model.quantize.embedding.weight.size())
         idx_cdf_uniform = pmf_to_cdf(get_uniform_pmf(model.quantize.embedding.weight.size(), index))
         byte_stream = torchac.encode_float_cdf(cdf_float=idx_cdf_uniform, sym=index.to(dtype=torch.int16).cpu(),
                                                check_input_bounds=True)
@@ -243,22 +282,26 @@ if __name__=='__main__':
         num_bits = os.path.getsize(save_tmp) * 8
         bpp = num_bits / num_pixel
         bpp_list.append(bpp)
+
     average_bpp = sum(bpp_list) / len(bpp_list)
     average_psnr= sum(psnr_list) / len(psnr_list)
+    average_lpips = sum(lpips_list) / len(lpips_list)
     bpp_list.append(average_bpp)
     psnr_list.append(average_psnr)
+    lpips_list.append(average_lpips)
     file_list.append('Average')
     data = {
         'Image Name': file_list,
         'Bits Per Pixel (BPP)': bpp_list,
-        'PSNR Value': psnr_list
+        'PSNR Value': psnr_list,
+        'LPIPS Value': lpips_list,
     }
 
     df = pd.DataFrame(data)
 
     # Write the DataFrame to an Excel file
-    output_file = 'bpp/' + name + '.xlsx'
+    output_file = f'bpp/{name}_{model_name}_bpp.xlsx'
     df.to_excel(output_file, index=False, engine='xlsxwriter')
 
-    print(f'Finish Model:{args.logs_path} test! Avg bpp = {average_bpp} psnr = {average_psnr}')
+    print(f'Finish Model:{args.logs_path} test! Avg bpp = {average_bpp} psnr = {average_psnr} lpips = {average_lpips}')
     print(f'Save bpp.csv to {output_file}')
