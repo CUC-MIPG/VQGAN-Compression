@@ -15,7 +15,7 @@ The framework is based on [VQGAN](https://github.com/CompVis/taming-transformers
 ## Introduction
 In this work, we propose a simple yet effective coding framework by introducing vector quantization (VQ)--based generative models into the image compression domain.
 
-[[Paper](https://arxiv.org/abs/2108.03690)] 
+[[Paper](https://arxiv.org/abs/2307.08265] 
 
 <p align="center">
 <img src="assets/sub.jpg"width="1060px"/>  
