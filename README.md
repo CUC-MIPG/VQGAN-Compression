@@ -1,55 +1,15 @@
-# Extreme Image Compression using Fine-tuned VQGAN Models (DCC 2024)
-This repository is the official implementation of VQGAN-Comporession.
+# Introduction
 
-[Qi Mao](https://sites.google.com/view/qi-mao/), [Tinghan Yang](), [Yinuo Zhang](), [Zijian Wang](), [Meng Wang](https://scholar.google.com/citations?user=6vnhEIgAAAAJ&hl=zh-TW&oi=sra), [Shiqi Wang](), [Libiao Jin](), [Siwei Ma](https://scholar.google.com/citations?user=y3YqlaUAAAAJ&hl=zh-TW&oi=sra)
+Official Pytorch implementation for image compression based on VQGAN model includes:
+* Finetuned-GAN:[Extreme Image Compression using Fine-tuned VQGAN Models](https://ieeexplore.ieee.org/document/10533792), DCC 2024, in [this folder](./Finetuned-VQGAN)
+* UIGC:[Unifying Generation and Compression: Ultra-low bitrate Image Coding Via Multi-stage Transformer](https://ieeexplore.ieee.org/abstract/document/10687549), ICME 2024， in [this floder](./UIGC)
 
-<p align="center">
-<img src="assets/Framework.png"width="1060px"/>  
-<br>
-<em> Figure:  Overview of the proposed VQGAN-based image coding framework.</em>
-</p>
+# Acknowledgement
+The implementation is based on [VQGAN](https://github.com/CompVis/taming-transformers).
 
-## Acknowledgement
-The framework is based on [VQGAN](https://github.com/CompVis/taming-transformers). We modify taming.modules.vqgan and add train.py and reconstruction.py for usage.
+# Citation
+If you find this work useful for your research, please cite:
 
-## Introduction
-In this work, we propose a simple yet effective coding framework by introducing vector quantization (VQ)--based generative models into the image compression domain.
-
-[[Paper](https://arxiv.org/abs/2307.08265)] 
-
-<p align="center">
-<img src="assets/sub.jpg"width="1060px"/>  
-<br>
-<em> Figure: Our Results. </em> </p>
-
-## Installation
-Our method is tested using cuda11.3 on a single A100. The preparation work mainly includes configuring the environment.
-```bash
-conda env create -f environment.yaml
-conda activate vqgan
-```
-### Reconstruction
-If you want reconstruction imge with pretrained model, please download [Google driver](https://drive.google.com/drive/folders/14I_RnQ3cA6etdKGPVMFdmmVgMtBTB5rn?usp=sharing) from [Baidu cloud](https://pan.baidu.com/s/1zBeWKh6vgof13iTBwtA65A?pwd=kfl7) (code: kfl7) and put in `logs/`
-
-Some evaluation dataset can be downloaded from 
-[kodak dataset](http://r0k.us/graphics/kodak/) and [CLIC](http://challenge.compression.cc/tasks/) and put in `data/`
-```bash
-python reconstruction.py --logs_path $model_dir --dataset $dataset_name
-```
-An example: After evaluation on the Kodak dataset, fine tune the pre trained model of [vqgan_imagenet_f16_16384](https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/) to a codebook size of 1024.
-```bash
-python reconstruction.py --logs_path logs/kmeans_tune/16384_kmeans_1024_epoch/epoch1/ --dataset Kodak/
-```
-The result is saved at `rec/Kodak/`
-
-### Train
-Prepare the dataset according to the instructions of the original [VQGAN](https://github.com/CompVis/taming-transformers?tab=readme-ov-file#data-preparation) project, but our training involves freezing the codec and only updating the codebook for fine-tuning. You can use the following code to achieve this:
-```bash
-python train.py --base configs/custom_vqgan.yaml -t True --gpus 0, --is_frozen
-```
-The fine-tune model is saved at `logs/`
-
-## Citation
 ```
 @inproceedings{mao2024extreme,
   title={Extreme image compression using fine-tuned vqgans},
@@ -59,7 +19,11 @@ The fine-tune model is saved at `logs/`
   year={2024},
   organization={IEEE}
 }
-``` 
 
-## Contact
-Feel free to contact us if there is any question. (Qi Mao, qimao@cuc.edu.cn; Tinghan Yang, yangtinghan@cuc.edu.cn)
+@article{xue2024unifying,
+  title={Unifying Generation and Compression: Ultra-low bitrate Image Coding Via Multi-stage Transformer},
+  author={Xue, Naifu and Mao, Qi and Wang, Zijian and Zhang, Yuan and Ma, Siwei},
+  journal={arXiv preprint arXiv:2403.03736},
+  year={2024}
+}
+```

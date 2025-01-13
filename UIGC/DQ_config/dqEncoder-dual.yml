@@ -1,0 +1,20 @@
+model:
+  base_learning_rate: 4.5e-06
+  target: taming.modules.DQ_modules.DualGrainEncoder.DualGrainEncoder
+  params:
+    ch: 128
+    out_ch: 3
+    ch_mult: [1,1,2,2,4]
+    num_res_blocks: 2
+    attn_resolutions: [16, 32]
+    dropout: 0.0
+    resamp_with_conv: true
+    in_channels: 3
+    resolution: 256
+    z_channels: 256
+    router_config:
+      target: taming.modules.DQ_modules.RouterDual.DualGrainFeatureRouter
+      params:
+        num_channels: 256
+        normalization_type: group-32
+        gate_type: 2layer-fc-SiLu

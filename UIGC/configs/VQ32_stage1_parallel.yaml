@@ -1,0 +1,75 @@
+model:
+  target: taming.models.transformer_4step.Transformer_stage1_parallel
+  params:
+    first_stage_key: image
+    monitor: val/loss
+    ckpt_path: logs/2023-11-05T20-25-27_VQ32_stage1_parallel/checkpoints/last.ckpt
+
+    transformer_config:
+      target: taming.models.transformer_4step.GPT_addtoken
+      params:
+        vocab_size: 32
+        block_size: 303
+        n_layer: 36
+        n_head: 16
+        n_embd: 1152
+        extra_token: 4
+        
+    first_stage_config:
+      target: taming.models.vqgan.VQModel
+      params:
+        ckpt_path: /mnt/data/xnf/ImageGeneration/vqgan_study/pretrain/kmeans_tune/16384_kmeans_32_epoch/epoch1/checkpoints/last.ckpt
+        embed_dim: 256
+        n_embed: 32
+        ddconfig:
+          double_z: false
+          z_channels: 256
+          resolution: 256
+          in_channels: 3
+          out_ch: 3
+          ch: 128
+          ch_mult:
+          - 1
+          - 1
+          - 2
+          - 2
+          - 4
+          num_res_blocks: 2
+          attn_resolutions:
+          - 16
+          dropout: 0.0
+        lossconfig:
+          target: taming.modules.losses.DummyLoss
+
+    trainging_config:
+      use_simple_optim: true
+      init_learning_rate: 1.0e-4
+      lr_milestone:
+      - 160000
+      - 240000
+      lr_milestones_gamma: 0.5
+      scheduler_interval: step
+      mask_ratio: [0.0, 0.75]
+      p_mask: 0.95
+      val_avg_times: 5
+
+data:
+  target: taming.data.wrapped_dataset.DataModuleFromConfig
+  params:
+    batch_size: 8
+    num_workers: 4
+    train:
+      target: taming.data.custom.CustomTrain
+      params:
+        training_images_list_file: /mnt/Xnf/DataSets/imagenet/train.txt
+        size: 320
+    validation:
+      target: taming.data.custom.CustomTest
+      params:
+        test_images_list_file: /mnt/Xnf/DataSets/CLIC/test_all.txt
+        size: 320
+
+lightning:
+  trainer:
+    max_epochs: 20
+    val_check_interval: 5000
