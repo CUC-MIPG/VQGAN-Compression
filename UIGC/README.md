@@ -1,6 +1,5 @@
 ## Unifying Generation and Compression: Ultra-low bitrate Image Coding Via Multi-stage Transformer
 
-> [Naifu Xue](https://scholar.google.com/citations?user=WYqicbgAAAAJ&hl=zh-CN&oi=sra), [Qi Mao](https://scholar.google.com/citations?user=VTQZF6EAAAAJ&hl=zh-CN&oi=sra), Zijian Wang, [Hao Wei](https://github.com/cshw2021), Yuan Zhang, [Siwei Ma](https://scholar.google.com/citations?user=y3YqlaUAAAAJ&hl=zh-CN&oi=sra)<br>
 > :confetti_ball:This is the official implementation of image compression based on UIGC.<br>
 > :partying_face: This work is accepted by 2024 IEEE International Conference on Multimedia and Expo (ICME).
 <p align="center">
@@ -61,10 +60,12 @@ This work is based on [VQGAN](https://github.com/lllyasviel/ControlNet), [miniGP
 Please cite us if our work is useful for your research.
 
 ```
-@article{xue2024unifying,
+@inproceedings{xue2024unifying,
   title={Unifying Generation and Compression: Ultra-low bitrate Image Coding Via Multi-stage Transformer},
   author={Xue, Naifu and Mao, Qi and Wang, Zijian and Zhang, Yuan and Ma, Siwei},
-  journal={arXiv preprint arXiv:2403.03736},
-  year={2024}
+  booktitle={2024 IEEE International Conference on Multimedia and Expo (ICME)}, 
+  pages={1-6},
+  year={2024}，
+  organization={IEEE}
 }
 ```

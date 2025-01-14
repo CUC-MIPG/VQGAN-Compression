@@ -19,10 +19,12 @@ If you find this work useful for your research, please cite:
   organization={IEEE}
 }
 
-@article{xue2024unifying,
+@inproceedings{xue2024unifying,
   title={Unifying Generation and Compression: Ultra-low bitrate Image Coding Via Multi-stage Transformer},
   author={Xue, Naifu and Mao, Qi and Wang, Zijian and Zhang, Yuan and Ma, Siwei},
-  journal={arXiv preprint arXiv:2403.03736},
-  year={2024}
+  booktitle={2024 IEEE International Conference on Multimedia and Expo (ICME)}, 
+  pages={1-6},
+  year={2024}，
+  organization={IEEE}
 }
 ```
