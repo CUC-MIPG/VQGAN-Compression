@@ -1,22 +1,21 @@
 ## Unifying Generation and Compression: Ultra-low bitrate Image Coding Via Multi-stage Transformer
 
 > [Naifu Xue](https://scholar.google.com/citations?user=WYqicbgAAAAJ&hl=zh-CN&oi=sra), [Qi Mao](https://scholar.google.com/citations?user=VTQZF6EAAAAJ&hl=zh-CN&oi=sra), Zijian Wang, [Hao Wei](https://github.com/cshw2021), Yuan Zhang, [Siwei Ma](https://scholar.google.com/citations?user=y3YqlaUAAAAJ&hl=zh-CN&oi=sra)<br>
-> This is the official implementation of image compression based on the fine tuned VQGAN model.<br>
+> :confetti_ball:This is the official implementation of image compression based on UIGC.<br>
 > :partying_face: This work is accepted by 2024 IEEE International Conference on Multimedia and Expo (ICME).
 <p align="center">
     <img src="assets/Framework.png" style="border-radius: 15px"><br>
 </p>
 
 ## :book: Table Of Contents
-- [:eyes: Visual Results](#visual_results)
+- [:eyes: Visual Visual Impressions](#visual_impression)
 - [:crossed\_swords: Quantitative Performance](#quantitative_performance)
-- [:computer: Train](#computer-train)
 - [:zap: Inference](#inference)
 - [:memo: TODO](#todo)
 - [:heart: Acknowledgement](#acknowledgement)
 - [:clipboard: Citation](#cite)
 
-## <a name="visual_results"></a>:eyes: Visual Results
+## <a name="visual_impression"></a>:eyes: Visual Impressions
 <p align="center">
     <img src="assets/visual_results.png" style="border-radius: 15px"><br>
 </p>
@@ -26,7 +25,7 @@
     <img src="assets/quantitative.png" style="border-radius: 15px"><br>
 </p>
 
-## :wrench: Requirements
+## :wrench: Install
 
 ```bash
 conda env create -f environment.yml
