@@ -1,4 +1,4 @@
-# Intraduction
+# Introduction
 Official Pytorch implementation for image compression based on VQGAN model includes:
 * Finetuned-GAN:[Extreme Image Compression using Fine-tuned VQGAN Models](https://ieeexplore.ieee.org/document/10533792), DCC 2024, in [this folder](./Finetuned-VQGAN)
 * UIGC:[Unifying Generation and Compression: Ultra-low bitrate Image Coding Via Multi-stage Transformer](https://ieeexplore.ieee.org/abstract/document/10687549), ICME 2024， in [this floder](./UIGC)
