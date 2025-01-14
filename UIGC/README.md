@@ -1,7 +1,7 @@
 ## Unifying Generation and Compression: Ultra-low bitrate Image Coding Via Multi-stage Transformer
 
-> This is the official implementation of image compression based on the fine tuned VQGAN model.<br>
 > [Naifu Xue](https://scholar.google.com/citations?user=WYqicbgAAAAJ&hl=zh-CN&oi=sra), [Qi Mao](https://scholar.google.com/citations?user=VTQZF6EAAAAJ&hl=zh-CN&oi=sra), Zijian Wang, [Hao Wei](https://github.com/cshw2021), Yuan Zhang, [Siwei Ma](https://scholar.google.com/citations?user=y3YqlaUAAAAJ&hl=zh-CN&oi=sra)<br>
+> This is the official implementation of image compression based on the fine tuned VQGAN model.<br>
 > :partying_face: This work is accepted by 2024 IEEE International Conference on Multimedia and Expo (ICME).
 <p align="center">
     <img src="assets/Framework.png" style="border-radius: 15px"><br>
@@ -29,9 +29,9 @@
 ## :wrench: Requirements
 
 ```bash
-- conda env create -f environment.yml
-- conda activate UIGC
-- pip install bitstream==2.6.0.2
+conda env create -f environment.yml
+conda activate UIGC
+pip install bitstream==2.6.0.2
 ```
 
 ## <a name="inference"></a>:zap: Inference
