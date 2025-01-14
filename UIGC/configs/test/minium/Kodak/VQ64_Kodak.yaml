@@ -81,7 +81,7 @@ data:
     test:
       target: taming.data.custom.CustomTest
       params:
-        test_images_list_file: dataset/Kodak.txt
+        test_images_list_file: dataset/Kodak.txt #This is the. txt file path that saves all the image paths in the test set
         size: 0 
 
 lightning:
