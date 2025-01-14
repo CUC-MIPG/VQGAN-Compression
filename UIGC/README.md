@@ -39,9 +39,9 @@ pip install bitstream==2.6.0.2
 2. Download the pre-trained transformer from [Baidu Cloud](https://pan.baidu.com/s/1iHQed7QqfuPJwlGOlF12kQ?pwd=7lqt) (code:7lqt).
 
 3. Here we provide three modes of reconstruction:
-* ‘entire’ indicates the mode without any Mask applied,
-* ’edge_more‘ refers to the mode where a checkerboard Mask is generated based on the edge map,
-* ‘minium’ denotes the mode with a full checkerboard Mask.
+* `entire` indicates the mode without any Mask applied,
+* `edge_more` refers to the mode where a checkerboard Mask is generated based on the edge map,
+* `minium` denotes the mode with a full checkerboard Mask.
 * Run the following command. 
 
    ```
